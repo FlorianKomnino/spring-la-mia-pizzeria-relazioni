@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PizzaPalace</title>
+</head>
+<body>
+	<h1 class="mt-5">La tua pizzeria preferita!!</h1>
+	
+	<h2>Vuoi inserire una nuova pizza?</h2>
+	<a th:href="@{/pizzas/create}">Clicca qui</a>
+	
+	<h2>Puoi filtrare le nostre pizze per nome.</h2>
+	<h2>Inserisci il nome che vuoi cercare o lascia il campo vuoto per visualizzare la lista completa!</h2>
+	
+	<form th:action="@{/pizzas/search}" method="POST">
+		<input type="text" name="name" th:value="${name}">
+		<input type="submit" value="Cerca">
+	</form>
+	
+	<h3>Ecco la lista delle nostre pizze:</h3>
+	
+	<ul th:if="${pizzasRes.size() > 0}">
+		<li
+			th:each="pizza : ${pizzasRes}"
+			th:object="${pizza}"
+		>
+		<a th:href="@{pizzas/{id} (id=*{id})}">
+			[[ *{name} ]]
+		</a>
+		<br>
+		<img width="300px" alt="foto della pizza" th:src="*{imgUrl}">
+		
+		<a th:href="@{/pizzas/update/{id} (id=*{id})}">
+			Aggiorna
+		</a>
+		<a th:href="@{/pizzas/delete/{id} (id=*{id})}">
+			Elimina
+		</a>
+		</li>
+	</ul>
+	<h5 th:unless="${pizzasRes.size() > 0}">
+		Purtroppo non ci sono pizze da mostrare...
+	</h5>
+</body>
+</html>

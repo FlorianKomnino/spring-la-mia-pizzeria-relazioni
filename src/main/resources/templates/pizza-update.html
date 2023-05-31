@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PizzaPalace</title>
+</head>
+<body th:object="${pizzaToUpdate}">
+	<h1>Aggiorna le informazioni della tua pizza</h1>
+	<form th:action="@{/pizzas/update/{id} (id=*{id})}" method="POST">
+		<label>Nome</label>
+		<input type="text" name="name" th:value="*{name}">
+		<label 	style="color: red" 
+				th:if="${errors != null && errors.hasFieldErrors('name')}">
+			[[ ${errors.getFieldError('name').defaultMessage} ]]
+		</label>
+		<br>
+		<label>Descrizione</label>
+		<input type="text" name="description" th:value="*{description}">
+		<label 	style="color: red" 
+				th:if="${errors != null && errors.hasFieldErrors('description')}">
+			[[ ${errors.getFieldError('description').defaultMessage} ]]
+		</label>
+		<br>
+		<label>Link all'immagine</label>
+		<input type="text" name="imgUrl" th:value="*{imgUrl}">
+		<label 	style="color: red" 
+				th:if="${errors != null && errors.hasFieldErrors('imgUrl')}">
+			[[ ${errors.getFieldError('imgUrl').defaultMessage} ]]
+		</label>
+		<br>
+		<label>Prezzo in centesimi</label>
+		<input type="number" name="priceInCents" th:value="*{priceInCents}">
+		<label 	style="color: red" 
+				th:if="${errors != null && errors.hasFieldErrors('priceInCents')}">
+			[[ ${errors.getFieldError('priceInCents').defaultMessage} ]]
+		</label>
+		<br>
+		<input type="submit" value="CREATE"> 
+	</form>
+</body>
+</html>
