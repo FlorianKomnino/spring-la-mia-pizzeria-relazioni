@@ -1,14 +1,16 @@
 package org.java.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.java.demo.pojo.Pizza;
+import org.java.demo.pojo.SpecialOffer;
 import org.java.demo.service.PizzaService;
+import org.java.demo.service.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 
 @SpringBootApplication
@@ -16,6 +18,9 @@ public class PizzaPlaceApplication implements CommandLineRunner {
 
 	@Autowired
 	private PizzaService pizzaService;
+	
+	@Autowired
+	private SpecialOfferService specialOfferService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PizzaPlaceApplication.class, args);
@@ -41,10 +46,33 @@ public class PizzaPlaceApplication implements CommandLineRunner {
 		pizzaService.save(p3);
 		pizzaService.save(p4);
 		pizzaService.save(p5);
+			
+		SpecialOffer spec1 = new SpecialOffer("2023-05-31", "2023-06-02", "Offertissima 30 percento di sconto", 30, p1);
+		SpecialOffer spec2 = new SpecialOffer("2023-05-31", "2023-06-02", "Offertissima 30 percento di sconto", 30, p2);
+		SpecialOffer spec3 = new SpecialOffer("2023-05-31", "2023-06-02", "Offertissima 30 percento di sconto", 30, p3);
+		SpecialOffer spec4 = new SpecialOffer("2023-05-31", "2023-06-02", "Offertissima 30 percento di sconto", 30, p4);
+		
+		specialOfferService.save(spec1);
+		specialOfferService.save(spec2);
+		specialOfferService.save(spec3);
+		specialOfferService.save(spec4);
 		
 		List<Pizza> pizzas = pizzaService.findAll();
 		
 		System.out.println(pizzas);
+		
+		
+		Optional<Pizza> firstPizzaOpt = pizzaService.findByIdWithBorrowing(1);
+		Pizza firstPizza = firstPizzaOpt.get();
+		
+		System.out.println(firstPizza);
+		System.out.println(firstPizza.getSpecialOffer());
+		
+		Optional<SpecialOffer> firstSpecialOfferOpt = specialOfferService.findById(1);
+		SpecialOffer firstSpecialOffer = firstSpecialOfferOpt.get();
+		
+		System.out.println(firstSpecialOffer);
+		System.out.println(firstSpecialOffer.getPizza());
 	}
 
 }

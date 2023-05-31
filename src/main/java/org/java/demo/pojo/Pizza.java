@@ -1,9 +1,12 @@
 package org.java.demo.pojo;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
@@ -22,10 +25,19 @@ public class Pizza {
 	@Min(value = 100, message = "Il costo deve essere di almeno 100 centesimi")
 	private Integer priceInCents;
 	
+	@OneToMany(mappedBy = "pizza")
+	private List<SpecialOffer> SpecialOffer;
+	
+	public List<SpecialOffer> getSpecialOffer() {
+		return SpecialOffer;
+	}
+	public void setSpecialOffer(List<SpecialOffer> specialOffer) {
+		SpecialOffer = specialOffer;
+	}
 	public Pizza() { }
 	public Pizza(String name, String description, String imgUrl, Integer priceInCents) {
-		setName(name);
 		
+		setName(name);
 		setDescription(description);
 		setImgUrl(imgUrl);
 		setPriceInCents(priceInCents);

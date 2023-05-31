@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>PizzaPalace</title>
+</head>
+<body>
+	<h1>Crea la tua nuova offerta speciale</h1>
+	<form method="POST">
+		<label>Nome</label>
+		<input type="text" name="title">
+		<br>
+		<label>Data di inizio offerta(yyyy-MM-dd)</label>
+		<input type="text" name="startingDate">
+		<br>
+		<label>Data di fine offerta(yyyy-MM-dd)</label>
+		<input type="text" name="endingDate">
+		<br>
+		<label>Percentuale sconto da applicare in questa offerta</label>
+		<input type="number" name="discountPercentage">
+		<br>
+		<input type="hidden" th:value="${pizza.id}">
+		<input type="submit" value="CREATE">
+	</form>
+</body>
+</html>
