@@ -16,6 +16,19 @@
 		<p>
 			[[ *{priceInFloat()} ]]
 		</p>
+		<h3>
+			Offerte Speciali attive
+		</h3>
+		<div th:if="${isOfferActive}">
+			<p th:each="specialOffer : ${specialOffers}"
+				th:object="${specialOffer}"
+				>
+				[[ *{title} ]]
+			</p>
+		</div>
+		<div th:unless="${isOfferActive}">
+			Non ci sono offerte attive
+		</div>
 		<a
 			th:href="@{/pizza/special/offer/{id} (id=*{id})}"
 		

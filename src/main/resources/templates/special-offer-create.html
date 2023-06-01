@@ -6,21 +6,21 @@
 </head>
 <body>
 	<h1>Crea la tua nuova offerta speciale</h1>
-	<form method="POST">
+	<form action="/pizza/special/offer" method="POST">
 		<label>Nome</label>
 		<input type="text" name="title">
 		<br>
-		<label>Data di inizio offerta(yyyy-MM-dd)</label>
-		<input type="text" name="startingDate">
+		<label>Data di inizio offerta</label>
+		<input type="date" name="startingDate">
 		<br>
-		<label>Data di fine offerta(yyyy-MM-dd)</label>
-		<input type="text" name="endingDate">
+		<label>Data di fine offerta</label>
+		<input type="date" name="endingDate">
 		<br>
 		<label>Percentuale sconto da applicare in questa offerta</label>
 		<input type="number" name="discountPercentage">
 		<br>
-		<input type="hidden" th:value="${pizza.id}">
-		<input type="submit" value="CREATE">
+		<input type="text" name="pizza" th:value="${pizza.id}" hidden>
+		<input type="submit" value="CREA">
 	</form>
 </body>
 </html>

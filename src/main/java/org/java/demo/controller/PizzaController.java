@@ -1,10 +1,13 @@
 package org.java.demo.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.java.demo.pojo.Pizza;
+import org.java.demo.pojo.SpecialOffer;
 import org.java.demo.service.PizzaService;
+import org.java.demo.service.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,9 @@ public class PizzaController {
 
 	@Autowired
 	PizzaService pizzaService;
+	
+	@Autowired
+	SpecialOfferService specialOfferService;
 		
 	@GetMapping("/") 
 	public String pizzaPlace(Model model) {
@@ -39,6 +45,15 @@ public class PizzaController {
 			) {
 		Optional<Pizza> optPizza = pizzaService.findById(id);
 		Pizza pizza = optPizza.get();
+		List<SpecialOffer> pizzaSpecOff = pizza.getSpecialOffer();
+		Boolean isSpecOffActive = false;
+		for (SpecialOffer specOff : pizzaSpecOff) {
+			if ( specOff.getStartingDate().isBefore(LocalDate.now()) && specOff.getEndingDate().isAfter(LocalDate.now())) {
+				isSpecOffActive = true;
+			}
+		}
+		model.addAttribute("isOfferActive", isSpecOffActive);
+		model.addAttribute("specialOffers", pizzaSpecOff);
 		model.addAttribute("singlePizza", pizza);
 		
 		return "singlePizza";
@@ -118,6 +133,28 @@ public class PizzaController {
 		
 		pizzaService.save(pizza);
 		
+		return "redirect:/";
+	}
+	
+	@GetMapping("pizza/special/offer/{id}")
+	public String specialOfferCreate(
+			Model model,
+			@PathVariable int id
+			) {
+		
+		Optional<Pizza> pizzaOpt = pizzaService.findById(id);
+		Pizza pizza = pizzaOpt.get();
+		model.addAttribute("pizza", pizza);
+		return "special-offer-create";
+	}
+	
+	@PostMapping("pizza/special/offer")
+	public String specialOfferStore(Model model,
+			@ModelAttribute SpecialOffer specialOffer
+			) {
+//		Pizza pizza = pizzaService.findById(specialOffer.getPizza().getId()).get();
+//		specialOffer.setPizza(pizza);
+		specialOfferService.save(specialOffer);
 		return "redirect:/";
 	}
 	

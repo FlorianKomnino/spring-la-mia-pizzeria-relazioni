@@ -28,7 +28,7 @@ public class SpecialOffer {
 	private Pizza pizza;
 	
 	public SpecialOffer() { }
-	public SpecialOffer(String startingDate, String endingDate, String title, Integer discountPercentage, Pizza pizza) {
+	public SpecialOffer(LocalDate startingDate, LocalDate endingDate, String title, Integer discountPercentage, Pizza pizza) {
 		
 		setStartingDate(startingDate);
 		setEndingDate(endingDate);
@@ -53,20 +53,18 @@ public class SpecialOffer {
 		return startingDate;
 	}
 
-	public void setStartingDate(String startingDate) {
+	public void setStartingDate(LocalDate startingDate) {
 
-		LocalDate locDateToSet = LocalDate.parse(startingDate);
-		this.startingDate = locDateToSet;
+		this.startingDate = startingDate;
 	}
 
 	public LocalDate getEndingDate() {
 		return endingDate;
 	}
 
-	public void setEndingDate(String endingDate) {
+	public void setEndingDate(LocalDate endingDate) {
 
-		LocalDate locDateToSet = LocalDate.parse(endingDate);
-		this.endingDate = locDateToSet;
+		this.endingDate = endingDate;
 	}
 
 	public String getTitle() {

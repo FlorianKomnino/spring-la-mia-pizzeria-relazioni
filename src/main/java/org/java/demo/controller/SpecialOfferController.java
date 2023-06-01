@@ -23,23 +23,4 @@ public class SpecialOfferController {
 	@Autowired
 	PizzaService pizzaService;
 	
-	@GetMapping("pizza/special/offer/{id}")
-	public String specialOfferCreate(Model model,
-			@PathVariable int id
-			) {
-		
-		Optional<Pizza> pizzaOpt = pizzaService.findById(id);
-		Pizza pizza = pizzaOpt.get();
-		model.addAttribute("pizza", pizza);
-		return "special-offer-create";
-	}
-	
-	@PostMapping("pizza/special/offer")
-	public String specialOfferStore(Model model,
-			@ModelAttribute SpecialOffer specialOffer
-			) {
-		
-		specialOfferService.save(specialOffer);
-		return "redirect:/";
-	}
 }
