@@ -13,8 +13,13 @@
 			[[ *{name} ]]
 		</p>
 		<img width="300px" alt="foto della pizza" th:src="*{imgUrl}">
-		<p>
-			[[ *{priceInFloat()} ]]
+		<div th:if="${isOfferActive}">
+			<p th:each="specialOffer : ${specialOffers}">
+				Prezzo gia' scontato con l'offerta "[[ ${specialOffer.getTitle()} ]]": [[ *{priceInFloat()} - *{priceInFloat()} * ${specialOffer.getDiscountPercentage()} / 100]]
+			</p>
+		</div>
+		<p th:unless="${isOfferActive}">
+			Prezzo: [[ *{priceInFloat()} ]]
 		</p>
 		<h3>
 			Offerte Speciali attive
