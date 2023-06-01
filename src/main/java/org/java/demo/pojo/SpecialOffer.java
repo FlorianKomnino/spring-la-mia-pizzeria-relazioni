@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -45,6 +46,12 @@ public class SpecialOffer {
 		setTitle(title);
 		setDiscountPercentage(discountPercentage);
 		setPizza(pizza);
+	}
+	
+	@AssertTrue(message="La data di fine offerta deve essere dopo la data di inizio offerta!")
+	private boolean isDateOrderCorrect() {
+		
+		return getStartingDate().isBefore(getEndingDate());
 	}
 	
 	public Integer getId() {

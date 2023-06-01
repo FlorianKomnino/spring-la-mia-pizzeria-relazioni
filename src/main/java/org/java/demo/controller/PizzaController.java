@@ -136,7 +136,7 @@ public class PizzaController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("pizza/special/offer/{id}")
+	@GetMapping("/pizza/special/offer/{id}")
 	public String specialOfferCreate(
 			Model model,
 			@PathVariable int id
@@ -149,7 +149,7 @@ public class PizzaController {
 		return "special-offer-create";
 	}
 	
-	@PostMapping("pizza/special/offer")
+	@PostMapping("/pizza/special/offer")
 	public String specialOfferStore(Model model,
 			@Valid @ModelAttribute SpecialOffer specialOffer,
 			BindingResult bindingResult

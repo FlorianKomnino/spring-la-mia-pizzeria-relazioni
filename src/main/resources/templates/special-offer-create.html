@@ -30,6 +30,10 @@
 				th:if="${errors != null && errors.hasFieldErrors('endingDate')}">
 			[[ ${errors.getFieldError('endingDate').defaultMessage} ]]
 		</label>
+		<label 	style="color: red" 
+				th:if="${errors != null && errors.hasFieldErrors('dateOrderCorrect')}">
+			[[ ${errors.getFieldError('dateOrderCorrect').defaultMessage} ]]
+		</label>
 		<br>
 		<label>Percentuale sconto da applicare in questa offerta</label>
 		<input type="number" name="discountPercentage">
