@@ -144,16 +144,30 @@ public class PizzaController {
 		
 		Optional<Pizza> pizzaOpt = pizzaService.findById(id);
 		Pizza pizza = pizzaOpt.get();
+		model.addAttribute("specialOffer", new SpecialOffer());
 		model.addAttribute("pizza", pizza);
 		return "special-offer-create";
 	}
 	
 	@PostMapping("pizza/special/offer")
 	public String specialOfferStore(Model model,
-			@ModelAttribute SpecialOffer specialOffer
+			@Valid @ModelAttribute SpecialOffer specialOffer,
+			BindingResult bindingResult
 			) {
-//		Pizza pizza = pizzaService.findById(specialOffer.getPizza().getId()).get();
-//		specialOffer.setPizza(pizza);
+		
+		if (bindingResult.hasErrors()) {
+			
+			for (ObjectError err : bindingResult.getAllErrors()) 
+				System.err.println("error: " + err.getDefaultMessage());
+			
+			Pizza pizza = specialOffer.getPizza();
+			model.addAttribute("pizza", pizza);
+			model.addAttribute("specialOffer", specialOffer);
+			model.addAttribute("errors", bindingResult);
+			
+			return "special-offer-create";
+		}
+		
 		specialOfferService.save(specialOffer);
 		return "redirect:/";
 	}

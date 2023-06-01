@@ -1,7 +1,6 @@
 package org.java.demo.pojo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +8,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class SpecialOffer {
@@ -19,8 +22,15 @@ public class SpecialOffer {
 	private Integer id;
 	
 	private LocalDate startingDate;
+	
+	@Future(message = "La data di fine offerta deve essere una data futura")
 	private LocalDate endingDate;
+	
+	@Size(min=3, max=255, message="La lunghezza del titolo deve essere compresa tra 3 e 255 caratteri!")
 	private String title;
+	
+	@Min(value=1, message="La percentuale minima di sconto deve essere 1")
+	@Max(value=100, message="La percentuale massima di sconto deve essere 100")
 	private Integer discountPercentage;
 	
 	@ManyToOne
