@@ -85,6 +85,9 @@ public class PizzaController {
 			) {
 		
 		if (bindingResult.hasErrors()) {
+
+			// system error print through lambda expression
+			bindingResult.getAllErrors().forEach( (er) -> System.err.println("Errore: " + er.getDefaultMessage())  );
 			
 			model.addAttribute("pizza", pizza);
 			model.addAttribute("errors", bindingResult);
@@ -123,8 +126,9 @@ public class PizzaController {
 		
 		if (bindingResult.hasErrors()) {
 			
-			for (ObjectError err : bindingResult.getAllErrors()) 
-				System.err.println("error: " + err.getDefaultMessage());
+			// system error print through lambda expression
+			bindingResult.getAllErrors().forEach( (er) -> System.err.println("Errore: " + er.getDefaultMessage())  );
+			
 			model.addAttribute("pizzaToUpdate", pizza);
 			model.addAttribute("errors", bindingResult);
 			
@@ -157,8 +161,9 @@ public class PizzaController {
 		
 		if (bindingResult.hasErrors()) {
 			
-			for (ObjectError err : bindingResult.getAllErrors()) 
-				System.err.println("error: " + err.getDefaultMessage());
+
+			// system error print through lambda expression
+			bindingResult.getAllErrors().forEach( (er) -> System.err.println("Errore: " + er.getDefaultMessage())  );
 			
 			Pizza pizza = specialOffer.getPizza();
 			model.addAttribute("pizza", pizza);
