@@ -2,46 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
 <title>PizzaPalace</title>
 </head>
 <body>
-	<h1>La pizza che hai scelto e': </h1>
-	<div
-		th:object="${singlePizza}"
-	>
-		<p>		
-			[[ *{name} ]]
-		</p>
-		<img width="300px" alt="foto della pizza" th:src="*{imgUrl}">
-		<div th:if="${isOfferActive}">
-			<p th:each="specialOffer : ${specialOffers}">
-				Prezzo gia' scontato con l'offerta "[[ ${specialOffer.getTitle()} ]]": [[ *{priceInFloat()} - *{priceInFloat()} * ${specialOffer.getDiscountPercentage()} / 100]]
-			</p>
-		</div>
-		<p th:unless="${isOfferActive}">
-			Prezzo: [[ *{priceInFloat()} ]]
-		</p>
-		<h3>
-			Offerte Speciali attive
-		</h3>
-		<div th:if="${isOfferActive}">
-			<p th:each="specialOffer : ${specialOffers}"
-				th:object="${specialOffer}"
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>La pizza che hai scelto e': </h1>
+				<div
+					th:object="${singlePizza}"
 				>
-				[[ *{title} ]]
-			</p>
+					<p>		
+						[[ *{name} ]]
+					</p>
+					<img width="300px" alt="foto della pizza" th:src="*{imgUrl}">
+					<div th:if="${isOfferActive}">
+						<p th:each="specialOffer : ${specialOffers}">
+							Prezzo gia' scontato con l'offerta "[[ ${specialOffer.getTitle()} ]]": [[ *{priceInFloat()} - *{priceInFloat()} * ${specialOffer.getDiscountPercentage()} / 100]]
+						</p>
+					</div>
+					<p th:unless="${isOfferActive}">
+						Prezzo: [[ *{priceInFloat()} ]]
+					</p>
+					<h3>
+						Offerte Speciali attive
+					</h3>
+					<div th:if="${isOfferActive}">
+						<p th:each="specialOffer : ${specialOffers}"
+							th:object="${specialOffer}"
+							>
+							[[ *{title} ]]
+						</p>
+					</div>
+					<div th:unless="${isOfferActive}">
+						Non ci sono offerte attive
+					</div>
+					<a
+						th:href="@{/pizza/special/offer/{id} (id=*{id})}"
+					
+					>
+					Aggiungi un'offerta
+					</a>
+				</div>
+				
+				<a th:href="@{/}">Torna alla pagina principale</a>
+			</div>
 		</div>
-		<div th:unless="${isOfferActive}">
-			Non ci sono offerte attive
-		</div>
-		<a
-			th:href="@{/pizza/special/offer/{id} (id=*{id})}"
-		
-		>
-		Aggiungi un'offerta
-		</a>
 	</div>
-	
-	<a th:href="@{/}">Torna alla pagina principale</a>
 </body>
 </html>

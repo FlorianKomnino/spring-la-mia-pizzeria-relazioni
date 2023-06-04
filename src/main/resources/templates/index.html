@@ -2,45 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{/css/style.css}">
 <title>PizzaPalace</title>
 </head>
 <body>
-	<h1 class="mt-5">La tua pizzeria preferita!!</h1>
+<div class="container">
+	<h1 class="mt-5 text-danger text-center">La tua pizzeria preferita!!</h1>
 	
-	<h2>Vuoi inserire una nuova pizza?</h2>
+	<h2 class="mt-5 text-success">Vuoi inserire una nuova pizza?</h2>
 	<a th:href="@{/pizzas/create}">Clicca qui</a>
 	
-	<h2>Puoi filtrare le nostre pizze per nome.</h2>
-	<h2>Inserisci il nome che vuoi cercare o lascia il campo vuoto per visualizzare la lista completa!</h2>
+	<h3 class="mt-4">Puoi filtrare le nostre pizze per nome.</h3>
+	<span>Inserisci il nome che vuoi cercare o lascia il campo vuoto per visualizzare la lista completa!</span>
 	
-	<form th:action="@{/pizzas/search}" method="POST">
+	<form class ="mt-2 mb-4" th:action="@{/pizzas/search}" method="POST">
 		<input type="text" name="name" th:value="${name}">
 		<input type="submit" value="Cerca">
 	</form>
 	
 	<h3>Ecco la lista delle nostre pizze:</h3>
-	
-	<ul th:if="${pizzasRes.size() > 0}">
-		<li
+	<div class="d-flex" 
+		th:if="${pizzasRes.size() > 0}"
+		>	
+		<div class="card m-3 pb-3" style="width: 18rem;"
+			th:if="${pizzasRes.size() > 0}"
 			th:each="pizza : ${pizzasRes}"
 			th:object="${pizza}"
-		>
-		<a th:href="@{pizzas/{id} (id=*{id})}">
-			[[ *{name} ]]
-		</a>
-		<br>
-		<img width="300px" alt="foto della pizza" th:src="*{imgUrl}">
-		
-		<a th:href="@{/pizzas/update/{id} (id=*{id})}">
-			Aggiorna
-		</a>
-		<a th:href="@{/pizzas/delete/{id} (id=*{id})}">
-			Elimina
-		</a>
-		</li>
-	</ul>
+			>
+			<figure class="w-100 h-50">
+				<img th:src="*{imgUrl}" class="card-img-top img-fluid h-100" alt="...">
+			</figure>
+			<div class="card-body h-50 d-flex flex-column justify-content-evenly">
+			    <h5 class="card-title text-center">[[ *{name} ]]</h5>
+			    <p class="card-text">[[ *{description} ]]</p>
+			    <div class="links">
+				    <a th:href="@{/pizzas/{id} (id=*{id})}" class="btn btn-primary">
+				    	Vai alla pizza
+				    </a>
+			    </div>
+			    <div>
+		    		<a class="text-warning" th:href="@{/pizzas/update/{id} (id=*{id})}">
+						Aggiorna pizza
+					</a>
+			    </div>
+			    <div>
+					<a class="text-danger" th:href="@{/pizzas/delete/{id} (id=*{id})}">
+						Elimina pizza
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<h5 th:unless="${pizzasRes.size() > 0}">
 		Purtroppo non ci sono pizze da mostrare...
 	</h5>
+</div>
 </body>
 </html>

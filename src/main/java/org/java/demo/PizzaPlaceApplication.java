@@ -48,10 +48,10 @@ public class PizzaPlaceApplication implements CommandLineRunner {
 		pizzaService.save(p4);
 		pizzaService.save(p5);
 			
-		SpecialOffer spec1 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-02"), "Offertissima 30 percento di sconto", 30, p1);
-		SpecialOffer spec2 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-02"), "Offertissima 30 percento di sconto", 30, p2);
-		SpecialOffer spec3 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-02"), "Offertissima 30 percento di sconto", 30, p3);
-		SpecialOffer spec4 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-02"), "Offertissima 30 percento di sconto", 30, p4);
+		SpecialOffer spec1 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-06"), "Offertissima 30 percento di sconto", 30, p1);
+		SpecialOffer spec2 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-06"), "Offertissima 30 percento di sconto", 30, p2);
+		SpecialOffer spec3 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-06"), "Offertissima 30 percento di sconto", 30, p3);
+		SpecialOffer spec4 = new SpecialOffer(LocalDate.parse("2023-05-31"), LocalDate.parse("2023-06-06"), "Offertissima 30 percento di sconto", 30, p4);
 		
 		specialOfferService.save(spec1);
 		specialOfferService.save(spec2);
