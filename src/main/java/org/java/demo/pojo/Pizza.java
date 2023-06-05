@@ -1,11 +1,13 @@
 package org.java.demo.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
@@ -28,19 +30,39 @@ public class Pizza {
 	@OneToMany(mappedBy = "pizza")
 	private List<SpecialOffer> SpecialOffer;
 	
-	public List<SpecialOffer> getSpecialOffer() {
-		return SpecialOffer;
-	}
-	public void setSpecialOffer(List<SpecialOffer> specialOffer) {
-		SpecialOffer = specialOffer;
-	}
+	@ManyToMany
+	private List<Ingredient> ingredients;
+	
+	
 	public Pizza() { }
-	public Pizza(String name, String description, String imgUrl, Integer priceInCents) {
+	public Pizza(String name, String description, String imgUrl, Integer priceInCents, Ingredient... ingredients) {
 		
 		setName(name);
 		setDescription(description);
 		setImgUrl(imgUrl);
 		setPriceInCents(priceInCents);
+		
+		setIngredients(ingredients);
+	}
+
+	
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	public void setIngredients(Ingredient[] ingredient) {
+		
+		setIngredients(Arrays.asList(ingredient));
+	}
+
+	public List<SpecialOffer> getSpecialOffer() {
+		return SpecialOffer;
+	}
+	public void setSpecialOffer(List<SpecialOffer> specialOffer) {
+		SpecialOffer = specialOffer;
 	}
 	public Integer getId() {
 		return id;

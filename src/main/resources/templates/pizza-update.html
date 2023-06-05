@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+<link rel="stylesheet" th:href="@{/css/style.css}">
 <title>PizzaPalace</title>
 </head>
 <body th:object="${pizzaToUpdate}">
@@ -35,7 +38,7 @@
 			[[ ${errors.getFieldError('priceInCents').defaultMessage} ]]
 		</label>
 		<br>
-		<input type="submit" value="CREATE"> 
+		<input class="btn btn-success" type="submit" value="CREATE"> 
 	</form>
 </body>
 </html>

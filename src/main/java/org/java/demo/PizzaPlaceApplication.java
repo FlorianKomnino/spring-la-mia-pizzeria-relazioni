@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.demo.pojo.Ingredient;
 import org.java.demo.pojo.Pizza;
 import org.java.demo.pojo.SpecialOffer;
+import org.java.demo.service.IngredientService;
 import org.java.demo.service.PizzaService;
 import org.java.demo.service.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class PizzaPlaceApplication implements CommandLineRunner {
 	
 	@Autowired
 	private SpecialOfferService specialOfferService;
+	
+	@Autowired
+	private IngredientService ingredientService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PizzaPlaceApplication.class, args);
@@ -57,6 +62,16 @@ public class PizzaPlaceApplication implements CommandLineRunner {
 		specialOfferService.save(spec2);
 		specialOfferService.save(spec3);
 		specialOfferService.save(spec4);
+		
+		Ingredient i1 = new Ingredient("Salsa di pomodoro");
+		Ingredient i2 = new Ingredient("Basilico");
+		Ingredient i3 = new Ingredient("Mozzarella");
+		Ingredient i4 = new Ingredient("Cipolla");
+
+		ingredientService.save(i1);
+		ingredientService.save(i2);
+		ingredientService.save(i3);
+		ingredientService.save(i4);
 		
 		List<Pizza> pizzas = pizzaService.findAll();
 		
