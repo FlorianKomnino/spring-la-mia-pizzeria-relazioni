@@ -63,10 +63,48 @@ public class IngredientController {
 		
 		ingredientService.save(ingredient);
 		
-		return "redirect:/";
+		return "redirect:/ingredients/list";
 	}
 
 	
+	@GetMapping("/ingredients/update/{id}")
+	public String editIngredient(
+			Model model,
+			@PathVariable int id
+		) {
+		
+		
+		Optional<Ingredient> ingredientOpt = ingredientService.findById(id);
+		Ingredient ingredient = ingredientOpt.get();
+		model.addAttribute("ingredient", ingredient);
+		
+		return "ingredient-update";
+	}
+	
+	@PostMapping("/ingredients/update")
+	public String updateIngredient(
+			Model model,
+			@PathVariable int id,
+			@Valid @ModelAttribute Ingredient ingredient,
+			BindingResult bindingResult
+		) {
+		
+		
+		if (bindingResult.hasErrors()) {
+			
+			// system error print through lambda expression
+			bindingResult.getAllErrors().forEach( (er) -> System.err.println("Errore: " + er.getDefaultMessage())  );
+			
+			model.addAttribute("ingredient", ingredient);
+			model.addAttribute("errors", bindingResult);
+			
+			return "pizza-update";
+		}
+		
+		ingredientService.save(ingredient);
+		
+		return "redirect:/ingredients/list";
+	}
 	
 	
 	

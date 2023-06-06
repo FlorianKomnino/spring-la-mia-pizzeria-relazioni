@@ -58,6 +58,9 @@ public class Ingredient {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+	public void addPizza(Pizza pizza) {
+		getPizzas().add(pizza);
+	}
 	
 	@Override
 	public String toString() {
@@ -65,5 +68,6 @@ public class Ingredient {
 		return "ID [" + getId() + "] - Nome: "
 				+ getName();
 	}
+
 	
 }

@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.demo.pojo.Ingredient;
 import org.java.demo.pojo.Pizza;
 import org.java.demo.pojo.SpecialOffer;
+import org.java.demo.service.IngredientService;
 import org.java.demo.service.PizzaService;
 import org.java.demo.service.SpecialOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class PizzaController {
 	
 	@Autowired
 	SpecialOfferService specialOfferService;
+	
+	@Autowired
+	IngredientService ingredientService;
 		
 	@GetMapping("/") 
 	public String pizzaPlace(Model model) {
@@ -51,6 +56,8 @@ public class PizzaController {
 				isSpecOffActive = true;
 			}
 		}
+		List<Ingredient> ingredients = pizza.getIngredients();
+		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("isOfferActive", isSpecOffActive);
 		model.addAttribute("specialOffers", pizzaSpecOff);
 		model.addAttribute("singlePizza", pizza);
@@ -71,6 +78,9 @@ public class PizzaController {
 	@GetMapping("/pizzas/create")
 	public String createPizza(Model model) {
 		
+		List<Ingredient> ingredients = ingredientService.findAll();
+		
+		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("pizza", new Pizza());
 		
 		return "pizza-create";
@@ -97,6 +107,11 @@ public class PizzaController {
 		
 		pizzaService.save(pizza);
 		
+		for (Ingredient ing : pizza.getIngredients()) {
+			ing.addPizza(pizza);
+			ingredientService.save(ing);
+		}
+		
 		return "redirect:/";
 	}
 	
@@ -109,6 +124,8 @@ public class PizzaController {
 		
 		Optional<Pizza> pizzaOpt = pizzaService.findById(id);
 		Pizza pizza = pizzaOpt.get();
+		List<Ingredient> ingredients = ingredientService.findAll();
+		model.addAttribute("ingredients", ingredients);
 		model.addAttribute("pizzaToUpdate", pizza);
 		
 		return "pizza-update";
